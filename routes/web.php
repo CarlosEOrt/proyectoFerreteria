@@ -20,9 +20,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('producto', ProductoController::class);
+//Route::middleware('auth')->group(function () { //Validacion de Login
 
-Route::resource('proveedor', ProveedorController::class);
+Route::resource('producto', ProductoController::class); //->middleware('auth');
+Route::resource('proveedor', ProveedorController::class); //->middleware('auth');
+
+//});
+
 
 
 Route::middleware([

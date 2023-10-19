@@ -7,15 +7,18 @@ use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
+
     public function index()
     {
         $productos =  Producto::all();
 
         //dd($productos);
-        
+
         return view('producto/productoIndex', compact('productos'));
     }
 
@@ -85,7 +88,7 @@ class ProductoController extends Controller
         $producto->marca = $request->marca;
         $producto->descripcion = $request->descripcion;
         $producto->save();
-        
+
         return redirect()->route('producto.index');
     }
 

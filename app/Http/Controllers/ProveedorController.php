@@ -7,16 +7,20 @@ use Illuminate\Http\Request;
 
 class ProveedorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $proveedores=Proveedor::all();
+        $proveedores = Proveedor::all();
         /*Proveedor::where('nombre', 'Gustavo')->get();*/
         /*Proveedor::where('nombre', 'like', $request->consulta)->get();*/
         //dd($proveedores);
-        
+
         return view('proveedor/proveedorIndex', compact('proveedores'));
     }
 
@@ -39,10 +43,10 @@ class ProveedorController extends Controller
             'telefono' => ['digits_between:8,10'],
         ]);
         $proveedor = new Proveedor();
-        $proveedor->nombre=$request->nombre;
-        $proveedor->correo=$request->correo;
-        $proveedor->telefono=$request->telefono;
-        $proveedor->tipo=$request->tipo;
+        $proveedor->nombre = $request->nombre;
+        $proveedor->correo = $request->correo;
+        $proveedor->telefono = $request->telefono;
+        $proveedor->tipo = $request->tipo;
         $proveedor->save();
 
         return redirect()->route('proveedor.index');
